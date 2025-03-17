@@ -1,0 +1,1 @@
+/home/christian/rust_projects/file_upload_endpoint/target/debug/file_upload_endpoint: /home/christian/rust_projects/file_upload_endpoint/public/index.html /home/christian/rust_projects/file_upload_endpoint/src/main.rs
