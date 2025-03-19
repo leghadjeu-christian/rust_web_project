@@ -6,5 +6,6 @@ edition = "2021"
 [dependencies]
 axum = { version = "0.7.3", features = ["multipart"] }
 tokio = { version = "1.35.0", features = ["full"] }
-cli = { path = "../rust-cli-file-uploader" }
+rust-cli-file-uploader = { path = "../rust-cli-file-uploader" }
+reqwest = "0.12.14"
 
