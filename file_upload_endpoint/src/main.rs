@@ -1,7 +1,7 @@
 use axum::{extract::Multipart, response::Html, routing::get, Router};
-
 use std::{fs::File, io::Write};
-async fn index() -> Html<&'static str> {
+
+pub async fn index() -> Html<&'static str> {
     Html(std::include_str!("../public/index.html"))
 }
 
@@ -11,22 +11,22 @@ async fn upload(mut multipart: Multipart) {
         .await
         .expect("Failed to get next field!")
     {
-        if field.name().unwrap() != "fileupload" {
-            continue;
-        }
-        println!("Got file!");
+        // if field.name().unwrap() != "fileupload" {
+        //     continue;
+        // }
+        println!("Got file");
 
         // Grab the name
         let file_name = field.file_name().unwrap();
 
         // Create a path for the soon-to-be file
-        let file_path = format!("files/{}", file_name);
+        let file_path = format!("{}", file_name);
 
         // Unwrap the incoming bytes
         let data = field.bytes().await.unwrap();
 
         // Open a handle to the file
-        let mut file_handle = File::create(file_path).expect("Failed to open file handle!");
+        let mut file_handle = File::create(format!("./rust-hello-server/uploads/{}",file_path)).expect("Failed to open file handle!");
 
         // Write the incoming data to the handle
         file_handle.write_all(&data).expect("Failed to write data!");
@@ -36,6 +36,7 @@ async fn upload(mut multipart: Multipart) {
 #[tokio::main]
 async fn main() {
     let app = Router::new().route("/", get(index).post(upload));
+    // .nest_service(path, service);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000")
         .await

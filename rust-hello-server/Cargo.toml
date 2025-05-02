@@ -4,5 +4,14 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = "0.8.1"
+axum = { version = "0.7.3", features = ["multipart"] }
 tokio = { version = "1", features = ["full"] }
+flate2 = "1.1.0"
+sqlx = { version = "0.8", features = ["runtime-tokio", "postgres", "mysql"] }
+tower-http = { version = "0.6.2", features = ["fs", "trace"] }
+futures = "0.3.31"
+# rust-file-compression ={ path = "../rust-file-compression" }
+
+
+[lib]
+path = "../rust-file-compression/src/lib.rs"
